@@ -8,7 +8,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float runSpeed = 12f;
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float groundDist = 0.4f;
+    [SerializeField] float mouseSensitivity = 100f;
 
+    public Transform playerBody;
     public Transform groundCheck;
     public LayerMask groundMask;
 
@@ -18,9 +20,18 @@ public class Player : MonoBehaviour
     //References//
     public CharacterController characterController;
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    void Update()
+    {   
+        //Mouse Rotate in the X//
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        playerBody.Rotate(Vector3.up * mouseX);
+        ////////////////////////
+
         Run();
     }
 
