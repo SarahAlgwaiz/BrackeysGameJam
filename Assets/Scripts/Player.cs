@@ -18,9 +18,15 @@ public class Player : MonoBehaviour
     bool isGrounded;
 
     //References//
+    [SerializeField] private Ui_Inventory ui_Inventory;
     public CharacterController characterController;
+    private Inventory inventory;
 
-
+    private void Awake()
+    {
+        inventory = new Inventory();
+        ui_Inventory.SetInventory(inventory);
+    }
 
     void Update()
     {   
