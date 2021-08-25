@@ -20,21 +20,20 @@ public class Player : MonoBehaviour
     //References//
     public CharacterController characterController;
 
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-    }
+
 
     void Update()
     {   
-        //Mouse Rotate in the X//
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        playerBody.Rotate(Vector3.up * mouseX);
-        ////////////////////////
-
+        //RotateMove if we want to add just call the function RotateMove();
         Run();
     }
 
+
+    private void RotateMove()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        playerBody.Rotate(Vector3.up * mouseX);
+    }
     private void Run()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDist, groundMask);
