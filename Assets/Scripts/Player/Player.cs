@@ -60,5 +60,21 @@ public class Player : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
     }
-    
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.GetComponent<Damage>())
+        {
+            health -= hit.gameObject.GetComponent<Damage>().GetDamage();
+
+            if (health <= 0)
+            {
+                health = 0;
+                Destroy(this.gameObject);
+            }
+        }
+
+        if (hit.gameObject.GetComponent<EnemyProjectile>())
+            Destroy(hit.gameObject);
+    }
 }
