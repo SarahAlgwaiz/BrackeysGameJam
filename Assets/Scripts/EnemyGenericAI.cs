@@ -148,7 +148,6 @@ public class EnemyGenericAI : MonoBehaviour
     }
     private void IamUnderAttack()
     {
-        // call whem enemy under attack
         underAttack = true;
     }
 
