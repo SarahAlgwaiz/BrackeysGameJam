@@ -336,6 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRanged: 0
+  health: 100
   speed: 2.5
   detectionDistance: 30
   attackRange: 2
