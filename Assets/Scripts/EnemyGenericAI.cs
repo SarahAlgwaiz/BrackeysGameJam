@@ -136,18 +136,17 @@ public class EnemyGenericAI : MonoBehaviour
         }
     }
 
-<<<<<<< HEAD
     //Enemy take damage and die new update
     public void TakeDamage(float amount)
     {
         health -= amount;
         Debug.Log("Enemy is taking damage");
-        if(health <= 0)
+        if (health <= 0)
         {
             Debug.Log("Enemy has died");
             Destroy(gameObject);
         }
-=======
+    }
     private void IamUnderAttack()
     {
         // call whem enemy under attack
@@ -159,6 +158,5 @@ public class EnemyGenericAI : MonoBehaviour
         yield return new WaitForSecondsRealtime(startRegenAfterAttackDelay);
         underAttack = false;
         underAttackRoutine = null;
->>>>>>> 21d8f7d711c94b10af3ea02a4bbb38f4e3549ec7
     }
 }
