@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {   
-        //RotateMove if we want to add just call the function RotateMove();
+        RotateMove();
         Run();
     }
 

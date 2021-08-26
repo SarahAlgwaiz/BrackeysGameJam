@@ -92,10 +92,22 @@ public class EnemyGenericAI : MonoBehaviour
                     if (isRanged)
                         Instantiate(enemyProjectile, projectilePoint.transform.position, Quaternion.identity);
                     else
-                        Debug.Log("Melee Attacking");
+                        Debug.Log("Enemy Melee Attacking");
                     nextAttack = Time.time + attackDelay;
                 }
             }
+        }
+    }
+
+    //Enemy take damage and die new update
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+        Debug.Log("Enemy is taking damage");
+        if(health <= 0)
+        {
+            Debug.Log("Enemy has died");
+            Destroy(gameObject);
         }
     }
 }
