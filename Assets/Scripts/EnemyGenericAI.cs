@@ -11,10 +11,25 @@ public class EnemyGenericAI : MonoBehaviour
     float health = 100;
 
     [SerializeField]
+    float maxHealth = 100;
+
+    [SerializeField]
+    float healthRegenPerSecond = 0.25f;
+
+    [SerializeField]
+    float healthRegenDelay = 0.5f;
+
+    [SerializeField]
+    float startRegenAfterAttackDelay = 5f;
+
+    [SerializeField]
     float speed = 2.5f;
 
     [SerializeField]
     float detectionDistance = 30f;
+
+    [SerializeField]
+    float fleeDistance = 30f;
 
     [SerializeField]
     float attackRange = 2f;
@@ -28,19 +43,28 @@ public class EnemyGenericAI : MonoBehaviour
     [SerializeField]
     GameObject projectilePoint;
 
-    float distanceFromPlayer;
+    [SerializeField]
+    bool underAttack = false;
 
+    float nextHealthRegen = 0;
+    
     float nextAttack = 0;
+
+    float startRegenAfterAttack = 0;
+
+    float distanceFromPlayer;
 
     float fleeHealth;
 
     Player player;
 
+    Coroutine underAttackRoutine = null;
+
     // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<Player>();
-        fleeHealth = health * 0.25f;
+        fleeHealth = maxHealth * 0.25f;
 
         if (isRanged)
             attackRange = 10f;
@@ -49,14 +73,30 @@ public class EnemyGenericAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        distanceFromPlayer = Vector3.Distance(transform.position, player.transform.position);
+
         if (player && health > fleeHealth)
         {
             PlayerDetectionAndAttack();
         }
 
-        if (health <= fleeHealth && distanceFromPlayer < attackRange)
+        if (health <= fleeHealth && distanceFromPlayer < fleeDistance)
         {
             FleeFromPlayer();
+        }
+
+        if (!underAttack && health < maxHealth && Time.time > nextHealthRegen)
+        {
+            nextHealthRegen = Time.time + healthRegenDelay;
+            health += healthRegenPerSecond;
+        }
+
+        if (underAttack)
+        {
+            if (underAttackRoutine == null)
+            {
+                underAttackRoutine = StartCoroutine(AfterUnderAttackRoutine());
+            }
         }
     }
 
@@ -65,16 +105,13 @@ public class EnemyGenericAI : MonoBehaviour
         Vector3 relativePos = player.transform.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(relativePos * -1, Vector3.up);
         transform.rotation = rotation;
-        
-        if (distanceFromPlayer < 50f)
-            transform.position += Vector3.forward * Time.deltaTime * speed;
+        transform.position += Vector3.forward * Time.deltaTime * speed;
     }
 
     private void PlayerDetectionAndAttack()
     {
         Vector3 relativePos = player.transform.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-        distanceFromPlayer = Vector3.Distance(transform.position, player.transform.position);
         
         if (distanceFromPlayer < detectionDistance)
         {
@@ -97,5 +134,18 @@ public class EnemyGenericAI : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void IamUnderAttack()
+    {
+        // call whem enemy under attack
+        underAttack = true;
+    }
+
+    IEnumerator AfterUnderAttackRoutine()
+    {
+        yield return new WaitForSecondsRealtime(startRegenAfterAttackDelay);
+        underAttack = false;
+        underAttackRoutine = null;
     }
 }
