@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6898359151941067136}
   - component: {fileID: 8682033995699597294}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: AttackRayCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -183,8 +183,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc93c14c611d2b48b5c2f169f61c366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage_P: 10
-  attackRange_P: 6.79
+  attackDamage_P: 1
+  attackRange_P: 5
+  attackCoolDown: 0
 --- !u!1 &3805979548822135998
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,7 +372,6 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  ui_Inventory: {fileID: 0}
   characterController: {fileID: 3805979550387119064}
 --- !u!114 &8546303739545433223
 MonoBehaviour:
@@ -385,5 +385,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449a987293e76ae4fbbfd65425b24ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 8682033995699597294}
   myWeapon: {fileID: 3649540188337424391}
