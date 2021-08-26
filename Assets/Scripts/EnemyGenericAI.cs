@@ -49,9 +49,7 @@ public class EnemyGenericAI : MonoBehaviour
     float nextHealthRegen = 0;
     
     float nextAttack = 0;
-
-    float startRegenAfterAttack = 0;
-
+    
     float distanceFromPlayer;
 
     float fleeHealth;
@@ -141,6 +139,7 @@ public class EnemyGenericAI : MonoBehaviour
     {
         health -= amount;
         Debug.Log("Enemy is taking damage");
+        IamUnderAttack();
         if (health <= 0)
         {
             Debug.Log("Enemy has died");
