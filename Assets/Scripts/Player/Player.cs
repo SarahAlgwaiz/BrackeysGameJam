@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float groundDist = 0.4f;
     [SerializeField] float mouseSensitivity = 100f;
+    [SerializeField] float health = 100f;
 
     public Transform playerBody;
     public Transform groundCheck;
@@ -59,4 +60,5 @@ public class Player : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
     }
+    
 }
