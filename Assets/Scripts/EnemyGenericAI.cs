@@ -7,8 +7,8 @@ public class EnemyGenericAI : MonoBehaviour
     [SerializeField]
     bool isRanged = false;
 
-    [SerializeField]
-    float health = 100;
+      [SerializeField] public  float health = 100;
+    [SerializeField] public  float MAXHEALTH = 100;
 
     [SerializeField]
     float maxHealth = 100;
@@ -38,6 +38,9 @@ public class EnemyGenericAI : MonoBehaviour
     float attackDelay = 0.5f;
 
     [SerializeField]
+    public  float attackPowerOffset = 0;
+
+    [SerializeField]
     GameObject enemyProjectile;
     
     [SerializeField]
@@ -53,6 +56,7 @@ public class EnemyGenericAI : MonoBehaviour
     float distanceFromPlayer;
 
     float fleeHealth;
+    public float movementMultiplyer = 1;
 
     Player player;
 
@@ -103,7 +107,7 @@ public class EnemyGenericAI : MonoBehaviour
         Vector3 relativePos = player.transform.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(relativePos * -1, Vector3.up);
         transform.rotation = rotation;
-        transform.position += Vector3.forward * Time.deltaTime * speed;
+        transform.position += Vector3.forward * Time.deltaTime * speed * movementMultiplyer;
     }
 
     private void PlayerDetectionAndAttack()
@@ -118,7 +122,7 @@ public class EnemyGenericAI : MonoBehaviour
             if (distanceFromPlayer > attackRange)
             {
                 float step = speed * Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
+                transform.position = Vector3.MoveTowards(transform.position * movementMultiplyer, player.transform.position, step);
             }
             else
             {

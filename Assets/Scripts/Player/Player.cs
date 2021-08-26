@@ -9,12 +9,15 @@ public class Player : MonoBehaviour
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float groundDist = 0.4f;
     [SerializeField] float mouseSensitivity = 100f;
-    [SerializeField] float health = 100f;
+    [SerializeField] public float health = 100f;
+    [SerializeField] public float MAXHEALTH = 100;
 
+    [SerializeField]
+    public float attackPowerOffset = 0;
     public Transform playerBody;
     public Transform groundCheck;
     public LayerMask groundMask;
-
+    public float movementMultiplyer = 1;
     Vector3 velocity;
     bool isGrounded;
 
@@ -60,7 +63,7 @@ public class Player : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        characterController.Move(Vector3.ClampMagnitude(move, 1.0f) * runSpeed * Time.deltaTime);
+        characterController.Move(Vector3.ClampMagnitude(move, 1.0f) * runSpeed * Time.deltaTime * movementMultiplyer);
 
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
