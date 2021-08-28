@@ -11,8 +11,10 @@ public class KeyScript : MonoBehaviour
     [SerializeField] int numEnemies = 5;
     [SerializeField] GameObject enemy;
     Vector3[] positions;
+    bool enemyActivated = false;
     void StartEnemy()
     {
+                enemyActivated = true;
     this.gameObject.GetComponent<MeshRenderer>().enabled = false;
     this.gameObject.transform.SetPositionAndRotation(
         new Vector3(this.gameObject.transform.position.x,300,this.gameObject.transform.position.z),this.gameObject.transform.rotation);
@@ -46,8 +48,9 @@ public class KeyScript : MonoBehaviour
 
             
                 int num = GameObject.FindGameObjectsWithTag("Enemy").Length; 
-            if(numEnemies == 0){
+            if(enemyActivated){
                 //move to other room
+                player.numKeys++;
             }
             else{
                 StartEnemy();

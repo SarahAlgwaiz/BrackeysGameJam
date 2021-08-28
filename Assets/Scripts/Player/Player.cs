@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] public float health = 100f;
     [SerializeField] public float MAXHEALTH = 100;
 
+[SerializeField] Ui_Inventory ui_Inventory;
     [SerializeField]
     public float attackPowerOffset = 0;
     public Transform playerBody;
@@ -20,6 +21,9 @@ public class Player : MonoBehaviour
     public float movementMultiplyer = 1;
     Vector3 velocity;
     bool isGrounded;
+    
+      
+   public int numKeys = 0;
 
     //References//
     //[SerializeField] private Ui_Inventory ui_Inventory;
@@ -41,9 +45,10 @@ public class Player : MonoBehaviour
     {   
         RotateMove();
         Run();
+          if(Input.GetKeyUp(KeyCode.Space)){
+            ui_Inventory.switchBetweenInventory();
+        }
     }
-
-
     private void RotateMove()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;

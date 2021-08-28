@@ -23,8 +23,8 @@ public class Item{
                 return Item_Assets.Instance.SwordSprite;
             case ItemType.Bow :         
                 return Item_Assets.Instance.BowSprite;
-            case ItemType.Spear :       
-                return Item_Assets.Instance.SpearSprite;
+              case ItemType.Spear :       
+              return Item_Assets.Instance.SpearSprite;
 
         }
     }

@@ -5,13 +5,13 @@ using UnityEngine;
 public class Inventory
 {
     private List<Item> itemList;
-
+    public int index= 0;
     public Inventory()
     {
         itemList = new List<Item>();
         AddItem(new Item{itemType = Item.ItemType.Sword, amount = 1});
         AddItem(new Item{itemType = Item.ItemType.Bow, amount = 1});
-        AddItem(new Item{itemType = Item.ItemType.Spear, amount = 1});
+        //AddItem(new Item{itemType = Item.ItemType.Spear, amount = 1});
         Debug.Log(itemList.Count);
     }
 
@@ -19,7 +19,12 @@ public class Inventory
     {
         itemList.Add(item);
     }
-
+    public void moveToNext(){
+        index++;
+        if(index >=itemList.Count){
+            index = 0;
+        }
+    }
     public List<Item> GetItemList()
     {
         return itemList;

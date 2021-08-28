@@ -9,8 +9,10 @@ public class Ui_Inventory : MonoBehaviour
     private Transform itemSlotContainer;
     private Transform itemSlotTemplate;
 
+    [SerializeField] Player player;
     private void Awake()
     {
+        inventory = new Inventory();
         itemSlotContainer = transform.Find("ItemSlotConteiner");
         itemSlotTemplate = itemSlotContainer.Find("ItemSlotTemplate");
     }
@@ -19,6 +21,21 @@ public class Ui_Inventory : MonoBehaviour
     {
         this.inventory = inventory;
         RefreshInventoryItems();
+    }
+
+    public void switchBetweenInventory(){
+      inventory.moveToNext();
+     itemSlotTemplate.GetChild(0).GetComponent<Image>().sprite = (inventory.GetItemList())[inventory.index].GetSprite();
+     switch((inventory.GetItemList())[inventory.index].itemType){
+         case Item.ItemType.Bow:
+            player.transform.Find("Body").Find("Sword").gameObject.SetActive(false);
+            player.transform.Find("Body").Find("Bow").gameObject.SetActive(true);
+         break;
+           case Item.ItemType.Sword:
+             player.transform.Find("Body").Find("Bow").gameObject.SetActive(false);
+            player.transform.Find("Body").Find("Sword").gameObject.SetActive(true);
+         break;
+     }
     }
 
     private void RefreshInventoryItems()
