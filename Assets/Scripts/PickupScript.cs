@@ -19,7 +19,7 @@ public class PickupScript : MonoBehaviour
 
  private void OnTriggerEnter(Collider other) {
      if(other.gameObject.tag != "Ground"){
-    int random = 5; // Random.Range(1,5);
+    int random = Random.Range(1,5);
     Debug.Log(other.gameObject.name);
         if(other.gameObject.name == "Player"){
             Debug.Log("this");
